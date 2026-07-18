@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { existsSync, linkSync, mkdirSync, readdirSync, readFileSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
+import { existsSync, linkSync, mkdirSync, readdirSync, readFileSync, realpathSync, rmSync, symlinkSync, writeFileSync } from "node:fs";
 import { dirname, delimiter, join } from "node:path";
 import { tmpdir } from "node:os";
 import { mkdtempSync } from "node:fs";
@@ -386,7 +386,7 @@ test("governed command uses direct argv, workspace cwd and a reduced environment
       secret?: string | null;
     };
     assert.equal(parsed.arg, literal, "shell metacharacters must remain one inert argv item");
-    assert.equal(parsed.cwd, testFixture.root);
+    assert.equal(parsed.cwd, realpathSync.native(testFixture.root));
     assert.notEqual(parsed.home, testFixture.root, "governed commands must not use the workspace as HOME");
     assert.equal(parsed.profile, parsed.home);
     assert.ok(parsed.home, "governed commands must receive a disposable HOME");

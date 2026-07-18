@@ -352,7 +352,8 @@ function readRegularFileBounded(path: string, maximumBytes: number, context: str
       throw new Error(`${context} must be a regular file without symbolic or hard links`);
     }
     if (before.size > maximumBytes) throw new Error(`${context} exceeds the ${maximumBytes}-byte limit`);
-    if (comparisonPath(realpathSync.native(absolute)) !== comparisonPath(absolute)) {
+    const canonical = realpathSync.native(absolute);
+    if (comparisonPath(canonical) !== comparisonPath(absolute) && !sameFile(before, lstatSync(canonical))) {
       throw new Error(`${context} resolves through a symbolic link, junction or reparse point`);
     }
 
@@ -673,8 +674,12 @@ export class UpstreamManager {
 
   constructor(options: UpstreamManagerOptions = {}) {
     const requestedRoot = resolve(options.projectRoot ?? process.cwd());
+    const requestedInfo = lstatSync(requestedRoot);
+    if (requestedInfo.isSymbolicLink() || !requestedInfo.isDirectory()) {
+      throw new Error("Project root must be a physical directory, not a symbolic link, junction or reparse point");
+    }
     const root = realpathSync.native(requestedRoot);
-    if (comparisonPath(root) !== comparisonPath(requestedRoot)) {
+    if (comparisonPath(root) !== comparisonPath(requestedRoot) && !sameFile(requestedInfo, lstatSync(root))) {
       throw new Error("Project root must not resolve through a symbolic link, junction or reparse point");
     }
     this.projectRoot = root;

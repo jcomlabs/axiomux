@@ -48,7 +48,14 @@ function comparisonPath(path: string): string {
 function assertCanonicalPath(path: string, kind: string): void {
   const canonical = realpathSync.native(path);
   if (comparisonPath(canonical) !== comparisonPath(path)) {
-    throw new Error(`${kind} resolves through a symbolic link, junction, or reparse-point redirection`);
+    const lexical = lstatSync(path);
+    const physical = lstatSync(canonical);
+    // Windows may expose one ordinary file through both its long path and an
+    // 8.3 short-name alias. Different spellings are safe only when lstat says
+    // the lexical entry is not a link and both names identify the same entry.
+    if (lexical.isSymbolicLink() || lexical.dev !== physical.dev || lexical.ino !== physical.ino) {
+      throw new Error(`${kind} resolves through a symbolic link, junction, or reparse-point redirection`);
+    }
   }
 }
 

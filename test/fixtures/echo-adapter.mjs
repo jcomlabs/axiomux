@@ -1,7 +1,11 @@
+import { writeSync } from "node:fs";
+
 let input = "";
 for await (const chunk of process.stdin) input += chunk;
 if (process.argv.includes("overflow")) {
-  process.stdout.write("x".repeat(2 * 1024 * 1024 + 1));
+  const output = Buffer.alloc(2 * 1024 * 1024 + 1, "x");
+  let offset = 0;
+  while (offset < output.length) offset += writeSync(1, output, offset, output.length - offset);
   process.exit(0);
 }
 const value = JSON.parse(input);
