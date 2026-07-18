@@ -1,0 +1,53 @@
+{
+  "model": "openai-codex/gpt-5.6-sol",
+  "fallbackModels": [],
+  "thinkingLevel": "high",
+  "ompExecutable": "auto",
+  "ompProfile": "",
+  "ompTools": ["read", "grep", "glob", "edit", "write", "bash", "python", "web_search", "todo"],
+  "ompEnvAllowlist": [],
+  "ompIsolation": {
+    "mode": "strict",
+    "rejectUntrustedExtensions": true
+  },
+  "approvalMode": "always-ask",
+  "autoLearn": true,
+  "persona": {
+    "intensity": 2
+  },
+  "selfEvaluation": {
+    "enabled": true,
+    "retentionDays": 365
+  },
+  "memory": {
+    "recallLimit": 8,
+    "maxContextCharacters": 12000,
+    "halfLifeDays": 120,
+    "episodic": {
+      "enabled": true,
+      "retentionDays": 365,
+      "maxCharacters": 2000
+    }
+  },
+  "fusion": {
+    "enabled": false,
+    "mode": "fusion",
+    "models": [],
+    "synthesisModel": "",
+    "maxParallel": 3,
+    "candidateTimeoutMs": 180000
+  },
+  "adapters": {
+    "browserUse": {
+      "enabled": false,
+      "command": "uv run --link-mode copy --project adapters/browser-use --frozen python adapters/browser_use_worker.py",
+      "envAllowlist": ["BROWSER_USE_API_KEY", "OPENAI_API_KEY", "SUPERAI_BROWSER_MODEL"],
+      "allowedDomains": []
+    },
+    "computerUse": {
+      "enabled": false,
+      "command": "python adapters/ufo_worker.py",
+      "envAllowlist": ["SUPERAI_UFO_DIR", "SUPERAI_UFO_PYTHON"]
+    }
+  }
+}

@@ -1,0 +1,13 @@
+node_modules/
+dist/
+.superai/
+.research/
+skills/user/
+skills/quarantine/
+.env
+.env.*
+!.env.example
+*.log
+*.tgz
+__pycache__/
+.venv/

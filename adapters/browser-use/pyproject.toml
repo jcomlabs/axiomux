@@ -1,0 +1,22 @@
+[project]
+name = "axiomux-browser-use-sidecar"
+version = "0.1.0"
+requires-python = ">=3.11,<4.0"
+dependencies = [
+  "browser-use==0.13.6",
+]
+
+[tool.uv]
+package = false
+override-dependencies = [
+  "aiohttp>=3.14.1,<4",
+  "click>=8.3.3,<9",
+  "mcp>=1.28.1,<2",
+  "pillow>=12.3.0,<13",
+  "pypdf>=6.13.3,<7",
+]
+
+[dependency-groups]
+dev = [
+    "pip-audit==2.10.1",
+]

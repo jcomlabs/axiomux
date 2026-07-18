@@ -1,0 +1,85 @@
+{
+  "name": "axiomux-agent",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Local-first multi-provider agent with governed memory, safe skills, steering and Fusion/MoA.",
+  "author": "JC-OM",
+  "bin": {
+    "axiomux": "dist/scripts/cli-launcher.js"
+  },
+  "scripts": {
+    "clean": "node scripts/clean-dist.mjs",
+    "build": "npm run clean && tsc -p tsconfig.json",
+    "check": "tsc -p tsconfig.json --noEmit",
+    "lint": "biome lint src test scripts ui",
+    "format": "biome format --write src test scripts ui config package.json tsconfig.json biome.json",
+    "format:check": "biome format src test scripts ui config package.json tsconfig.json biome.json",
+    "language:audit": "node scripts/language-audit.mjs",
+    "brand:audit": "node scripts/brand-audit.mjs --check",
+    "quality": "npm run check && npm run lint && npm run format:check && npm run language:audit && npm run brand:audit",
+    "dev": "node --env-file-if-exists=.env --disable-warning=ExperimentalWarning --import tsx src/cli.ts",
+    "start": "node --env-file-if-exists=.env --disable-warning=ExperimentalWarning dist/src/cli.js",
+    "test": "npm run build && node --disable-warning=ExperimentalWarning --test dist/test/*.test.js",
+    "smoke": "node --env-file-if-exists=.env --disable-warning=ExperimentalWarning --import tsx src/cli.ts doctor",
+    "doctor:online": "node --env-file-if-exists=.env --disable-warning=ExperimentalWarning --import tsx src/cli.ts doctor --online",
+    "omp:install": "node --disable-warning=ExperimentalWarning dist/scripts/install-omp.js",
+    "e2e:host": "node --env-file-if-exists=.env --disable-warning=ExperimentalWarning --import tsx scripts/e2e-host-tool.ts",
+    "security": "npm audit --audit-level=low && node scripts/secret-scan.mjs",
+    "security:browser": "uv run --link-mode copy --project adapters/browser-use --frozen pip-audit --progress-spinner off",
+    "validate": "npm run quality && npm test && npm run security",
+    "validate:full": "npm run validate && npm run security:browser",
+    "prepare": "npm run build",
+    "prepack": "npm run build"
+  },
+  "files": [
+    "dist/src",
+    "dist/scripts",
+    "adapters/browser-use/pyproject.toml",
+    "adapters/browser-use/uv.lock",
+    "adapters/browser_use_worker.py",
+    "adapters/ufo_worker.py",
+    "adapters/README.md",
+    "agent",
+    "assets",
+    "config",
+    "docs",
+    "skills/core",
+    "ui",
+    ".env.example",
+    "LICENSE",
+    "README.md",
+    "CHANGELOG.md",
+    "CONTRIBUTING.md",
+    "KNOWN_ISSUES.md",
+    "PLAN.md",
+    "REPORT.md",
+    "SECURITY.md",
+    "SOURCES.md",
+    "THIRD_PARTY_NOTICES.md"
+  ],
+  "devDependencies": {
+    "@biomejs/biome": "2.5.4",
+    "@types/node": "^24.0.0",
+    "tsx": "^4.20.0",
+    "typescript": "^5.9.0"
+  },
+  "engines": {
+    "node": ">=24"
+  },
+  "license": "MIT",
+  "keywords": [
+    "ai-agent",
+    "multi-provider",
+    "open-source",
+    "local-first",
+    "memory",
+    "skills",
+    "fusion",
+    "computer-use"
+  ],
+  "dependencies": {
+    "ipaddr.js": "2.4.0",
+    "yaml": "2.9.0"
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "research-and-decide",
+  "title": "Research with a human decision gate",
+  "steps": [
+    {
+      "id": "research",
+      "type": "agent",
+      "prompt": "Research the question from primary sources, preserve provenance, contradictions and confidence.",
+      "retries": 1
+    },
+    {
+      "id": "decision-gate",
+      "type": "approval",
+      "prompt": "Review the research output. Continue to durable memory?"
+    },
+    {
+      "id": "record-policy",
+      "type": "memory",
+      "content": "Research was reviewed through the durable workflow gate.",
+      "label": "research-workflow"
+    }
+  ]
+}

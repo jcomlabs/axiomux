@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="dark">
+    <title>Axiomux</title>
+    <link rel="icon" type="image/png" href="/axiomux-emblem.png">
+    <link rel="stylesheet" href="/styles.css">
+    <script src="/app.js" type="module"></script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar" aria-label="Projects and sessions" data-i18n-aria-label="sidebar.aria">
+        <header class="brand">
+          <img class="brand-emblem" src="/axiomux-emblem.png" alt="" aria-hidden="true">
+          <div>
+            <strong>Axiomux</strong>
+            <small data-i18n="brand.subtitle">local agent workspace</small>
+          </div>
+        </header>
+
+        <section class="sidebar-section projects-section">
+          <div class="section-heading">
+            <h2 data-i18n="projects.title">Projects</h2>
+            <span id="project-count" class="count">0</span>
+          </div>
+          <nav id="project-list" class="nav-list" aria-label="Projects" data-i18n-aria-label="projects.aria"></nav>
+        </section>
+
+        <section class="sidebar-section sessions-section">
+          <div class="section-heading">
+            <h2 data-i18n="sessions.title">Sessions</h2>
+            <div class="section-actions"><span id="session-count" class="count">0</span><button id="new-session" type="button" aria-label="New session" title="New session" data-i18n-aria-label="sessions.new" data-i18n-title="sessions.new">+</button></div>
+          </div>
+          <nav id="session-list" class="nav-list" aria-label="Sessions" data-i18n-aria-label="sessions.aria"></nav>
+        </section>
+
+        <footer class="local-badge">
+          <span class="status-dot"></span>
+          <span data-i18n="status.localExecution">Local execution</span>
+          <span class="shield" role="img" aria-label="Private connection" data-i18n-aria-label="status.privateConnection">◆</span>
+        </footer>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div class="session-title">
+            <span class="eyebrow" id="project-label" data-i18n="workspace.project">PROJECT</span>
+            <h1 id="session-title" data-i18n="workspace.chooseSession">Choose a session</h1>
+          </div>
+          <div class="runtime-controls">
+            <label>
+              <span data-i18n="controls.provider">Provider</span>
+              <select id="provider-select" aria-label="Provider" data-i18n-aria-label="controls.providerAria"></select>
+            </label>
+            <label>
+              <span data-i18n="controls.model">Model</span>
+              <select id="model-select" aria-label="Model" data-i18n-aria-label="controls.modelAria"></select>
+            </label>
+            <label class="language-control">
+              <span data-i18n="language.label">Language</span>
+              <select
+                id="language-select"
+                aria-label="Interface and response language"
+                title="Change the interface and assistant response language"
+                data-i18n-aria-label="language.aria"
+                data-i18n-title="language.title"
+              >
+                <option value="en" data-i18n="language.english">English</option>
+                <option value="pt" data-i18n="language.portuguese">Portuguese</option>
+              </select>
+            </label>
+            <button id="routing-open" class="icon-button" type="button" title="Configure fallback and Fusion/MoA" data-i18n-title="controls.routingTitle">
+              <span aria-hidden="true">⎇</span><span class="button-label" data-i18n="controls.routing">Routing</span>
+            </button>
+            <button id="memory-open" class="icon-button" type="button" aria-controls="memory-drawer" title="Open memory" data-i18n-title="controls.memoryTitle">
+              <span aria-hidden="true">⌁</span><span class="button-label" data-i18n="controls.memory">Memory</span>
+            </button>
+          </div>
+        </header>
+
+        <div class="conversation-layout">
+          <section class="conversation" aria-label="Conversation" data-i18n-aria-label="conversation.aria">
+            <div id="messages" class="messages" aria-live="polite" aria-relevant="additions text">
+              <div id="empty-state" class="empty-state">
+                <img class="empty-emblem" src="/axiomux-emblem.png" alt="Axiomux emblem" data-i18n-alt="empty.emblemAlt">
+                <p class="eyebrow" data-i18n="empty.eyebrow">AXIOMUX WORKSPACE</p>
+                <h2 data-i18n="empty.title">One agent, multiple minds.</h2>
+                <p data-i18n="empty.description">Select a session and describe the outcome you want. You can steer the work while it is running.</p>
+              </div>
+            </div>
+
+            <div class="composer-wrap">
+              <div id="active-task" class="active-task" hidden>
+                <span class="task-pulse" aria-hidden="true"></span>
+                <span id="task-status" data-i18n="task.working">Working</span>
+                <button id="stop-button" type="button" data-i18n="task.stop">Stop</button>
+              </div>
+              <form id="composer" class="composer">
+                <label class="sr-only" for="message-input" data-i18n="composer.label">Message or guidance</label>
+                <textarea id="message-input" rows="3" maxlength="32000" placeholder="Tell Axiomux what you want to build…" data-i18n-placeholder="composer.placeholder" required></textarea>
+                <div class="composer-footer">
+                  <span id="composer-hint" data-i18n="composer.hint">Enter to send · Shift+Enter for a new line</span>
+                  <button id="send-button" class="primary-button" type="submit">
+                    <span id="send-label" data-i18n="composer.run">Run</span><span aria-hidden="true">↗</span>
+                  </button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <aside class="trace-panel" aria-label="Public agent activity" data-i18n-aria-label="trace.aria">
+            <header>
+              <div>
+                <span class="eyebrow" data-i18n="trace.eyebrow">ACTIVITY</span>
+                <h2 data-i18n="trace.title">Public trace</h2>
+              </div>
+              <span id="trace-count" class="count">0</span>
+            </header>
+            <p class="trace-note" data-i18n="trace.note">Plans, tools and evidence. The model's private reasoning is never shown.</p>
+            <ol id="trace-list" class="trace-list"></ol>
+          </aside>
+        </div>
+      </main>
+
+      <aside id="memory-drawer" class="memory-drawer" aria-label="Searchable memory" data-i18n-aria-label="memory.aria" aria-hidden="true">
+        <header>
+          <div>
+            <span class="eyebrow" data-i18n="memory.context">CONTEXT</span>
+            <h2 data-i18n="memory.title">Memory</h2>
+          </div>
+          <button id="memory-close" class="icon-button close-button" type="button" aria-label="Close memory" data-i18n-aria-label="memory.close">×</button>
+        </header>
+        <form id="memory-search" class="memory-search">
+          <label for="memory-query" data-i18n="memory.searchLabel">Search decisions, facts and sessions</label>
+          <div>
+            <input id="memory-query" type="search" maxlength="2000" placeholder="Example: security decisions" data-i18n-placeholder="memory.searchPlaceholder">
+            <button type="submit" data-i18n="memory.searchButton">Search</button>
+          </div>
+          <label class="search-scope-option" for="search-all-projects">
+            <input id="search-all-projects" type="checkbox">
+            <span data-i18n="memory.allProjects">All projects and sessions</span>
+          </label>
+        </form>
+        <div id="memory-results" class="memory-results" aria-live="polite">
+          <p class="muted" data-i18n="memory.scopeNote">Sessions respect the current selection. Governed memory uses its configured scope and may span projects.</p>
+        </div>
+      </aside>
+      <div id="drawer-backdrop" class="drawer-backdrop" hidden></div>
+      <dialog id="routing-dialog" class="routing-dialog" aria-labelledby="routing-title">
+        <form id="routing-form">
+          <header>
+            <div>
+              <span class="eyebrow" data-i18n="routing.eyebrow">ORCHESTRATION</span>
+              <h2 id="routing-title" data-i18n="routing.title">Fallback and Fusion/MoA</h2>
+            </div>
+            <button id="routing-close" class="icon-button close-button" type="button" aria-label="Close routing settings" data-i18n-aria-label="routing.close">×</button>
+          </header>
+          <p class="routing-note" data-i18n="routing.note">Global routes may send the request to the selected providers. An explicit model choice for a session or request remains exact: it does not enable fallback or Fusion.</p>
+
+          <label class="toggle-row" for="fusion-enabled">
+            <span class="toggle-copy"><strong data-i18n="routing.enable">Enable multi-model council</strong><small data-i18n="routing.enableHelp">Participants have no tools; the synthesizer receives their responses only as untrusted data.</small></span>
+            <input id="fusion-enabled" type="checkbox">
+          </label>
+
+          <div class="routing-grid">
+            <label>
+              <span data-i18n="routing.mode">Mode</span>
+              <select id="fusion-mode">
+                <option value="fusion" data-i18n="routing.modeFusion">Fusion — final synthesis</option>
+                <option value="moa" data-i18n="routing.modeMoa">MoA — advisory panel</option>
+              </select>
+            </label>
+            <label>
+              <span data-i18n="routing.maxParallel">Maximum concurrency</span>
+              <input id="fusion-parallel" type="number" min="1" max="8" step="1" value="3">
+            </label>
+          </div>
+
+          <label class="routing-field">
+            <span data-i18n="routing.participants">Participants (2–8 when enabled)</span>
+            <select id="fusion-participants" multiple size="7" aria-describedby="participants-help"></select>
+            <small id="participants-help" data-i18n="routing.participantsHelp">Ctrl/Cmd + click combines models from any provider, including Neuralwatt.</small>
+          </label>
+
+          <label class="routing-field">
+            <span data-i18n="routing.synthesizer">Synthesizer/judge</span>
+            <select id="fusion-synthesis"></select>
+          </label>
+
+          <label class="routing-field">
+            <span data-i18n="routing.fallback">Global fallback (0–8, in the displayed order)</span>
+            <select id="fallback-models" multiple size="5"></select>
+            <small data-i18n="routing.fallbackHelp">Empty by default. It is attempted only while retrying remains safe and no consequential effect has completed.</small>
+          </label>
+
+          <div class="routing-actions">
+            <button id="routing-cancel" class="secondary-button" type="button" data-i18n="routing.cancel">Cancel</button>
+            <button class="primary-button" type="submit" data-i18n="routing.save">Save routing</button>
+          </div>
+        </form>
+      </dialog>
+      <dialog id="approval-dialog" class="approval-dialog" aria-labelledby="approval-title" aria-describedby="approval-description">
+        <div class="approval-icon" aria-hidden="true">!</div>
+        <span class="eyebrow" data-i18n="approval.eyebrow">HUMAN CONFIRMATION</span>
+        <h2 id="approval-title" data-i18n="approval.title">Authorize an action with effects?</h2>
+        <p class="approval-note" data-i18n="approval.note">Read the full request. Approve only if you recognize the intent and destination.</p>
+        <pre id="approval-description"></pre>
+        <div class="approval-actions">
+          <button id="approval-deny" class="secondary-button" type="button" data-i18n="approval.deny">Deny</button>
+          <button id="approval-allow" class="primary-button" type="button" data-i18n="approval.allowOnce">Approve once</button>
+        </div>
+      </dialog>
+      <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,215 @@
+{
+  "schemaVersion": 1,
+  "upstreams": [
+    {
+      "id": "oh-my-pi",
+      "owner": "can1357",
+      "repo": "oh-my-pi",
+      "strategy": "release",
+      "role": "Audited external runtime for provider authentication, OAuth, model registry, JSONL RPC and coding-agent interoperability.",
+      "license": { "spdx": "MIT", "codeReuseAllowed": true },
+      "baseline": {
+        "kind": "commit",
+        "ref": "3fdd85ab6c6bab6c0cdee80abbbec0981740a5c0",
+        "release": "v17.0.4",
+        "evidence": "SOURCES.md and THIRD_PARTY_NOTICES.md; selective update review 2026-07-18"
+      },
+      "monitorIncludes": [
+        "packages/ai/src/registry/**",
+        "packages/ai/src/**/models*",
+        "packages/ai/src/**/models/**",
+        "packages/coding-agent/src/modes/rpc/**",
+        "packages/coding-agent/src/agent-session*",
+        "packages/coding-agent/src/auth*",
+        "packages/coding-agent/src/auth/**",
+        "packages/coding-agent/src/model*"
+      ],
+      "monitorExcludes": ["**/*.snap", "**/fixtures/**", "**/node_modules/**"],
+      "topics": ["oauth", "auth broker", "provider", "model registry", "rpc", "login", "credential", "streaming"]
+    },
+    {
+      "id": "hermes-agent",
+      "owner": "NousResearch",
+      "repo": "hermes-agent",
+      "strategy": "release",
+      "role": "Primary architectural research source for reliability, progressive learning, skills, memory and multi-agent synthesis.",
+      "license": { "spdx": "MIT", "codeReuseAllowed": true },
+      "baseline": {
+        "kind": "commit",
+        "ref": "9de9c25f620ff7f1ce0fd5457d596052d5159596",
+        "release": "v2026.7.7.2",
+        "evidence": "SOURCES.md initial audited snapshot 2026-07-17"
+      },
+      "monitorIncludes": ["**/agent/**", "**/memory/**", "**/skills/**", "**/providers/**", "**/mixture*", "run_agent.py"],
+      "monitorExcludes": ["**/__pycache__/**", "**/*.lock", "website/**"],
+      "topics": ["memory", "skill", "learning", "reliability", "mixture", "provider", "checkpoint", "recovery"]
+    },
+    {
+      "id": "openclaw",
+      "owner": "openclaw",
+      "repo": "openclaw",
+      "strategy": "release",
+      "role": "Ideas-only research for personality boundaries and connectors; never adopted without a fresh license and security review.",
+      "license": { "spdx": "NOASSERTION", "codeReuseAllowed": false },
+      "baseline": {
+        "kind": "commit",
+        "ref": "2d2ddc43d0dcf71f31283d780f9fe9ff4cc04fe4",
+        "release": "v2026.7.1",
+        "evidence": "SOURCES.md initial audited snapshot 2026-07-17"
+      },
+      "monitorIncludes": ["src/agents/**", "src/persona/**", "src/channels/**", "src/connectors/**", "src/memory/**"],
+      "monitorExcludes": ["**/*.snap", "**/fixtures/**", "**/node_modules/**"],
+      "topics": ["persona", "identity", "soul", "connector", "channel", "memory", "security"]
+    },
+    {
+      "id": "ob1",
+      "owner": "NateBJones-Projects",
+      "repo": "OB1",
+      "strategy": "branch",
+      "role": "Ideas-only research for provenance, review, multi-source ingestion and governed write-back.",
+      "license": { "spdx": "LicenseRef-FSL-1.1-MIT", "codeReuseAllowed": false },
+      "baseline": {
+        "kind": "commit",
+        "ref": "677910600de98067f61c120d65956b23f360aedb",
+        "evidence": "SOURCES.md initial audited snapshot 2026-07-17"
+      },
+      "monitorIncludes": ["**/memory/**", "**/retriev*", "**/source*", "**/provenance*", "**/review*"],
+      "monitorExcludes": ["**/*.lock", "**/node_modules/**", "**/.venv/**"],
+      "topics": ["provenance", "retrieval", "source", "review", "memory", "write-back"]
+    },
+    {
+      "id": "superpowers",
+      "owner": "obra",
+      "repo": "superpowers",
+      "strategy": "branch",
+      "role": "Methodology research for planning, TDD, debugging, verification and reusable skills.",
+      "license": { "spdx": "MIT", "codeReuseAllowed": true },
+      "baseline": {
+        "kind": "commit",
+        "ref": "d884ae04edebef577e82ff7c4e143debd0bbec99",
+        "evidence": "SOURCES.md initial audited snapshot 2026-07-17"
+      },
+      "monitorIncludes": ["skills/**", "hooks/**", "commands/**"],
+      "monitorExcludes": ["**/*.lock", "**/node_modules/**"],
+      "topics": ["skill", "planning", "testing", "debugging", "verification", "subagent"]
+    },
+    {
+      "id": "oh-my-openagent",
+      "owner": "code-yeongyu",
+      "repo": "oh-my-openagent",
+      "strategy": "branch",
+      "ref": "dev",
+      "role": "Ideas-only research for intent gates, role orchestration and evidence-led agent workflows.",
+      "license": { "spdx": "LicenseRef-Sustainable-Use", "codeReuseAllowed": false },
+      "baseline": {
+        "kind": "commit",
+        "ref": "14083b89f1cbf4680be13493a6c4afd67c957e8a",
+        "evidence": "SOURCES.md initial audited snapshot 2026-07-17"
+      },
+      "monitorIncludes": ["src/agents/**", "src/hooks/**", "src/tools/**", "src/orchestration/**"],
+      "monitorExcludes": ["**/*.snap", "**/fixtures/**", "**/node_modules/**"],
+      "topics": ["intent", "agent", "orchestration", "evidence", "tool", "routing"]
+    },
+    {
+      "id": "dify",
+      "owner": "langgenius",
+      "repo": "dify",
+      "strategy": "release",
+      "role": "Ideas-only research for typed workflows, pause/retry, human gates and model routing.",
+      "license": { "spdx": "LicenseRef-Dify-Open-Source", "codeReuseAllowed": false },
+      "baseline": {
+        "kind": "commit",
+        "ref": "5c6372d2f76d240265b92fd27c16bc772ffcb107",
+        "release": "1.16.0",
+        "evidence": "SOURCES.md initial audited snapshot 2026-07-17"
+      },
+      "monitorIncludes": ["api/core/workflow/**", "api/core/agent/**", "api/core/model_runtime/**", "web/app/components/workflow/**"],
+      "monitorExcludes": ["**/*.snap", "**/fixtures/**", "**/node_modules/**"],
+      "topics": ["workflow", "human in the loop", "retry", "pause", "agent", "model runtime"]
+    },
+    {
+      "id": "browser-use",
+      "owner": "browser-use",
+      "repo": "browser-use",
+      "strategy": "release",
+      "role": "Optional browser-automation sidecar monitored for API, safety and compatibility changes.",
+      "license": { "spdx": "MIT", "codeReuseAllowed": true },
+      "baseline": {
+        "kind": "commit",
+        "ref": "950eb03617e67548d759c02beac1ad122c6b6458",
+        "release": "0.13.6",
+        "evidence": "SOURCES.md initial audited snapshot 2026-07-17"
+      },
+      "observedLocalVersion": "0.13.6",
+      "monitorIncludes": ["browser_use/**", "tests/**", "pyproject.toml"],
+      "monitorExcludes": ["**/__pycache__/**", "**/*.lock", "docs/**"],
+      "topics": ["browser", "agent", "security", "domain", "screenshot", "model", "api"]
+    },
+    {
+      "id": "mem0",
+      "owner": "mem0ai",
+      "repo": "mem0",
+      "strategy": "branch",
+      "ref": "main",
+      "role": "Ideas-only research for memory lifecycle, ranking, consolidation and local-first operation.",
+      "license": { "spdx": "Apache-2.0", "codeReuseAllowed": true },
+      "baseline": {
+        "kind": "commit",
+        "ref": "ddaa655edf41e3ed375b263fb227da0bcd42ccb9",
+        "evidence": "SOURCES.md initial audited snapshot 2026-07-17"
+      },
+      "monitorIncludes": ["mem0/**", "openmemory/**", "server/**", "api/**"],
+      "monitorExcludes": ["**/__pycache__/**", "**/*.lock", "**/node_modules/**", "**/fixtures/**"],
+      "topics": ["memory", "lifecycle", "ranking", "consolidation", "retrieval", "local"]
+    },
+    {
+      "id": "agency-agents",
+      "owner": "msitarzewski",
+      "repo": "agency-agents",
+      "strategy": "branch",
+      "ref": "main",
+      "role": "Ideas-only research for specialist missions, explicit process and evidence-led handoffs.",
+      "license": { "spdx": "MIT", "codeReuseAllowed": true },
+      "baseline": {
+        "kind": "commit",
+        "ref": "459dce837db3bdfdc4763d3fefd1fd854e73c8f1",
+        "evidence": "SOURCES.md initial audited snapshot 2026-07-17"
+      },
+      "monitorIncludes": ["engineering/**", "design/**", "product/**", "strategy/**", "specialized/**", "README.md"],
+      "monitorExcludes": ["**/*.lock", "**/node_modules/**", "**/fixtures/**"],
+      "topics": ["mission", "process", "evidence", "specialist", "handoff", "verification"]
+    },
+    {
+      "id": "codex",
+      "owner": "openai",
+      "repo": "codex",
+      "strategy": "release",
+      "role": "Research source for approval boundaries, sandboxing, task UX and public computer-use architecture.",
+      "license": { "spdx": "Apache-2.0", "codeReuseAllowed": true },
+      "baseline": {
+        "kind": "commit",
+        "ref": "315195492c80fdade38e917c18f9584efd599304",
+        "evidence": "SOURCES.md local audited snapshot"
+      },
+      "monitorIncludes": ["codex-rs/core/**", "codex-rs/protocol/**", "codex-rs/app-server/**", "codex-rs/exec-server/**", "codex-rs/tui/**"],
+      "monitorExcludes": ["**/*.snap", "**/fixtures/**", "**/target/**"],
+      "topics": ["sandbox", "approval", "computer use", "tool", "task", "checkpoint", "protocol"]
+    },
+    {
+      "id": "claude-code",
+      "owner": "anthropics",
+      "repo": "claude-code",
+      "strategy": "branch",
+      "role": "Public experience-pattern research only; no proprietary core, prompts or code are eligible for reuse.",
+      "license": { "spdx": "NOASSERTION", "codeReuseAllowed": false },
+      "baseline": {
+        "kind": "commit",
+        "ref": "67f390c9a0b1440d369aebe2ff6a5023db35bf8e",
+        "evidence": "SOURCES.md initial audited snapshot 2026-07-17"
+      },
+      "monitorIncludes": ["plugins/**", "scripts/**", "examples/**", ".claude/**"],
+      "monitorExcludes": ["**/*.lock", "**/node_modules/**"],
+      "topics": ["checkpoint", "hook", "approval", "permission", "task", "session", "verification"]
+    }
+  ]
+}
