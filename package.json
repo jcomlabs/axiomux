@@ -6,7 +6,8 @@
   "description": "Local-first multi-provider agent with governed memory, safe skills, steering and Fusion/MoA.",
   "author": "JC-OM",
   "bin": {
-    "axiomux": "dist/scripts/cli-launcher.js"
+    "axiomux": "dist/scripts/cli-launcher.js",
+    "axiomux-demo": "dist/scripts/judge-demo.js"
   },
   "scripts": {
     "clean": "node scripts/clean-dist.mjs",
@@ -23,6 +24,7 @@
     "test": "npm run build && node --disable-warning=ExperimentalWarning --test dist/test/*.test.js",
     "smoke": "node --env-file-if-exists=.env --disable-warning=ExperimentalWarning --import tsx src/cli.ts doctor",
     "doctor:online": "node --env-file-if-exists=.env --disable-warning=ExperimentalWarning --import tsx src/cli.ts doctor --online",
+    "demo:judge": "node --disable-warning=ExperimentalWarning dist/scripts/judge-demo.js",
     "omp:install": "node --disable-warning=ExperimentalWarning dist/scripts/install-omp.js",
     "e2e:host": "node --env-file-if-exists=.env --disable-warning=ExperimentalWarning --import tsx scripts/e2e-host-tool.ts",
     "security": "npm audit --audit-level=low && node scripts/secret-scan.mjs",
@@ -49,6 +51,7 @@
     ".env.example",
     "LICENSE",
     "README.md",
+    "BUILD_WEEK.md",
     "CHANGELOG.md",
     "CONTRIBUTING.md",
     "KNOWN_ISSUES.md",

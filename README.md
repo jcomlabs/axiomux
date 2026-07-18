@@ -12,6 +12,12 @@ The inherited `.superai` directory and `SUPERAI_*` environment variables remain 
 
 The project is at `0.1.0-alpha`: it is a functional, tested prototype, not yet a hardened security product or a promise of unsupervised autonomy.
 
+## OpenAI Build Week judge path
+
+This branch adds the reversible material for Axiomux's secondary **Developer Tools** submission. General product work remains on `main`.
+
+Judges can install the compiled tarball in a fresh directory and run `npx axiomux-demo` without rebuilding, network access, accounts, or credentials. The demo executes the shipped session, memory, routing, effect-ledger, fallback, policy, skill, and Fusion components and prints six explicit PASS checks. Its central proof hands the same local session between two exact provider routes, then shows why fallback is allowed before an effect and blocked after one. Start with [BUILD_WEEK.md](BUILD_WEEK.md), then follow [judge testing](docs/JUDGE_TESTING.md). The [demo script](docs/DEMO_SCRIPT.md) and [submission copy](docs/SUBMISSION_COPY.md) are kept beside the product evidence.
+
 ## What exists today
 
 - login, authentication status, catalogue discovery, and model switching through OMP RPC, with fallback to the official `auth-broker` CLI subcommand only for the exact audited pre-auth rejection;
@@ -302,6 +308,8 @@ npm run e2e:host
 ## Development provenance
 
 Codex assisted with repository analysis, architecture, implementation, security hardening, regression tests, bilingual UI work, and release preparation. The human owner made the product and authority decisions, including strict isolation, explicit approval, effect-aware fallback, tool-less Fusion consultants, native Neuralwatt, and governed local memory.
+
+For Build Week, Codex also helped create the deterministic judge path and evidence package. The configured OpenAI route targets `openai-codex/gpt-5.6-sol`; current live-evidence status and credential-free reproduction notes are recorded in [BUILD_WEEK.md](BUILD_WEEK.md).
 
 For an objective assessment—strengths, defects, priorities, and open decisions—see [docs/PRODUCT_ASSESSMENT.md](docs/PRODUCT_ASSESSMENT.md).
 

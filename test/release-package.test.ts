@@ -18,6 +18,7 @@ test("release commands use compiled files shipped in the package", () => {
   assert.equal(manifest.name, "axiomux-agent");
   assert.equal(manifest.author, "JC-OM");
   assert.equal(manifest.bin?.axiomux, "dist/scripts/cli-launcher.js");
+  assert.equal(manifest.bin?.["axiomux-demo"], "dist/scripts/judge-demo.js");
   assert.equal(manifest.scripts?.["omp:install"], "node --disable-warning=ExperimentalWarning dist/scripts/install-omp.js");
   assert.ok(manifest.files?.includes("dist/src"));
   assert.ok(manifest.files?.includes("dist/scripts"));
